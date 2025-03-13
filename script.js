@@ -74,6 +74,7 @@ const checkDraw = () => {
     }
 };
 
+
 const checkWinner = () => {
     for (let pattern of winPatterns){
 

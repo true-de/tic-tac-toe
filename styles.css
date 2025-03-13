@@ -4,8 +4,14 @@
 }
 
 body {
-    background-color: #548687;
+    background-color: #7a7676;
     text-align: center;
+}
+
+h1{
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
 }
 .container {
     height: 70vh;
@@ -31,8 +37,8 @@ body {
     border: none;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
     font-size: 8vmin;
-    color: #5c5656;
-    background-color: #ffffc7;
+    color: #ede3e3;
+    background-color: #363634;
 }
 #reset-btn, #new-btn {
     padding: 1rem;
