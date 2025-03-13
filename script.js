@@ -53,13 +53,26 @@ const enableBoxes = () => {
     }
 }
 
-
-
 const showWinner = (winner) => {
     msg.innerText = `Congratulations, winner is ${winner}`;
     msgContainer.classList.remove("hidden");
     disableBoxes();
 }
+
+const checkDraw = () => {
+    let allBoxesFilled = true;
+    for (let box of boxes) {
+        if (box.innerText === "") {
+            allBoxesFilled = false;
+            break;
+        }
+    }
+    if (allBoxesFilled) {
+        msg.innerText = "It's a draw!";
+        msgContainer.classList.remove("hidden");
+        disableBoxes();
+    }
+};
 
 const checkWinner = () => {
     for (let pattern of winPatterns){
@@ -74,6 +87,7 @@ const checkWinner = () => {
             }
         }
     }
+    checkDraw();
 };
 
 const resetGame = () => {
