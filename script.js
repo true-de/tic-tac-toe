@@ -16,6 +16,11 @@ const winPatterns = [
     [6,7,8]
 ];
 
+//   Handles the click event on each box in the game.
+//   Updates the box's text with 'O' or 'X' based on the current turn, disables the box, and checks for a winner.
+
+//   @param {HTMLElement} box - The clicked box element.
+//   @returns {void}
 boxes.forEach((box) => {
     box.addEventListener("click", () => {
         console.log("box clicked");
@@ -29,15 +34,17 @@ boxes.forEach((box) => {
         }
         box.disabled = true;
 
-        checkwinner();
+        checkWinner();
     });
 });
 
+//   Handles the click event on the reset button.
 const disableBoxes = () => {
     for(let box of boxes) {
         box.disabled = true;
     }
 }
+
 
 const enableBoxes = () => {
     for(let box of boxes) {
@@ -46,13 +53,15 @@ const enableBoxes = () => {
     }
 }
 
-const showwinner = (winner) => {
+
+
+const showWinner = (winner) => {
     msg.innerText = `Congratulations, winner is ${winner}`;
     msgContainer.classList.remove("hidden");
     disableBoxes();
 }
 
-const checkwinner = () => {
+const checkWinner = () => {
     for (let pattern of winPatterns){
 
         let pos1Val = boxes[pattern[0]].innerText;
@@ -61,7 +70,7 @@ const checkwinner = () => {
 
         if(pos1Val != "" && pos2Val != "" && pos3Val != ""){
             if(pos1Val === pos2Val && pos2Val === pos3Val){
-                showwinner(pos1Val);
+                showWinner(pos1Val);
             }
         }
     }
