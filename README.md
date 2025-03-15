@@ -67,10 +67,6 @@ The game uses the minimax algorithm, an optimal decision-making algorithm for ze
 - Game history and replay feature
 - Two-player mode option
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgments
 
 - Original minimax algorithm implementation inspiration from GeeksforGeeks
