@@ -1,71 +1,71 @@
-# tic-tac-toe
 # Tic Tac Toe with Minimax AI
 
-A simple yet challenging Tic Tac Toe game featuring an unbeatable AI opponent powered by the minimax algorithm.
+A feature-rich Tic Tac Toe game with an unbeatable AI opponent powered by the minimax algorithm, customizable game settings, and a sound toggle feature.
 
 ## Features
 
-- Clean, responsive user interface
-- Player vs. AI gameplay
-- Optimized AI using the minimax algorithm
-- Impossible to beat (at best, you can draw)
-- Game state tracking and messaging
-- New game and reset options
+- 🎮 **Game Modes**: Play vs AI or challenge a friend in two-player mode.
+- 🧠 **Smart AI**: Uses the Minimax algorithm for optimal decision-making.
+- 🎚️ **Difficulty Levels**: Easy, Medium, and Hard (Hard mode is unbeatable!).
+- 🔊 **Sound Effects Toggle**: Enable/disable game sounds easily.
+- 📊 **Score Tracking**: Keeps track of wins, losses, and draws.
+- ⏳ **Game History**: View past games with a visual board representation.
+- 🔄 **Reset & New Game Options**: Quickly start over or begin a fresh session.
+- 🎨 **Clean, Responsive UI**: Optimized for desktop and mobile.
 
 ## How It Works
 
 ### Game Structure
-- **Player:** Uses 'O' and makes the first move
-- **AI Opponent:** Uses 'X' and responds with optimal moves
-- **Win Conditions:** Standard Tic Tac Toe rules - 3 in a row horizontally, vertically, or diagonally
+
+- **Player:** Selects 'X' or 'O' and plays first.
+- **AI Opponent:** Responds optimally to every move.
+- **Win Conditions:** Standard Tic Tac Toe rules - 3 in a row horizontally, vertically, or diagonally.
 
 ### Minimax Algorithm
-The AI opponent uses the minimax algorithm - a recursive decision-making algorithm that:
-1. Evaluates all possible future game states
-2. Assumes the opponent will play optimally
-3. Chooses moves that maximize AI's chances while minimizing player's chances
-4. Results in perfect play that cannot lose
+
+The AI opponent uses the minimax algorithm to:
+
+1. Evaluate all possible future game states.
+2. Assume the opponent plays optimally.
+3. Choose moves that maximize its chances of winning.
+4. Result in an AI that is nearly impossible to beat.
 
 ## Technologies Used
 
-- HTML5
-- CSS3
-- Vanilla JavaScript (no frameworks or libraries)
+- **HTML5**
+- **CSS3**
+- **JavaScript (Vanilla)**
+- **Font Awesome (for icons)**
 
 ## Getting Started
 
 ### Prerequisites
-- Any modern web browser (Chrome, Firefox, Safari, Edge)
+
+- Any modern web browser (Chrome, Firefox, Edge, Safari)
 
 ### Installation
+
 1. Clone the repository:
-   ```
+   ```bash
    git clone https://github.com/true-de/tic-tac-toe-minimax.git
    ```
-2. Open `index.html` in your browser
+2. Open `index.html` in your browser.
 
 ### Playing the Game
-1. Click any square to place your 'O'
-2. The AI will automatically respond with its move
-3. Try to get three in a row to win (though the AI will never let you win!)
-4. Use the "Reset Game" button to start a new game at any time
+
+1. Click any tile to place your mark.
+2. The AI (if enabled) will make its move.
+3. Get three in a row to win!
+4. Use the **Reset** button to restart the game or **New Game** to reset scores.
+5. Toggle game sounds on/off using the sound button.
 
 ## Development Notes
 
-The game uses the minimax algorithm, an optimal decision-making algorithm for zero-sum games. The implementation:
+- The AI is built using the minimax algorithm with alpha-beta pruning for efficiency.
+- In **Easy/Medium mode**, the AI occasionally makes random moves.
+- **Hard mode** makes perfect moves and cannot lose.
+- Score tracking and game history are stored in memory during gameplay.
 
-- Recursively explores all possible game states
-- Assigns scores to game states (+10 for AI win, -10 for player win, 0 for draw)
-- Adjusts scores based on move depth to prefer quicker wins
-- Selects the move with the highest score for the AI
-
-## Future Improvements
-
-- Difficulty levels (by limiting minimax search depth)
-- Score tracking across multiple games
-- Sound effects and animations
-- Game history and replay feature
-- Two-player mode option
 
 ## Acknowledgments
 

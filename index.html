@@ -1,34 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <div class="msg-container hidden">
         <p id="msg">Winner</p>
         <button id="new-btn">New Game</button>
-
     </div>
+
     <main>
         <h1>Tic Tac Toe</h1>
-        <div class="container">
-            <div class="game">
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
+
+        <div class="game-options">
+            <div class="option-group">
+                <label>Play as:</label>
+                <div class="toggle-buttons">
+                    <button id="play-as-o" class="active">O</button>
+                    <button id="play-as-x">X</button>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <label>Who goes first:</label>
+                <div class="toggle-buttons">
+                    <button id="player-first" class="active">Player</button>
+                    <button id="computer-first">Computer</button>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <label>Difficulty:</label>
+                <div class="toggle-buttons">
+                    <button id="difficulty-easy">Easy</button>
+                    <button id="difficulty-medium">Medium</button>
+                    <button id="difficulty-hard" class="active">Hard</button>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <label>Game Mode:</label>
+                <div class="toggle-buttons">
+                    <button id="mode-ai" class="active">vs AI</button>
+                    <button id="mode-2p">2 Player</button>
+                </div>
             </div>
         </div>
-        <button id="reset-btn">Reset Game</button>
+
+        <div class="game-info">
+            <div id="turn-indicator">
+                <span>Current Turn: </span>
+                <span id="current-player">O</span>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="game">
+                <button class="box" data-index="0"></button>
+                <button class="box" data-index="1"></button>
+                <button class="box" data-index="2"></button>
+                <button class="box" data-index="3"></button>
+                <button class="box" data-index="4"></button>
+                <button class="box" data-index="5"></button>
+                <button class="box" data-index="6"></button>
+                <button class="box" data-index="7"></button>
+                <button class="box" data-index="8"></button>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <button id="reset-btn">Reset Game</button>
+            <button id="sound-toggle"><i class="fas fa-volume-up"></i></button>
+        </div>
+
+        <div class="scoreboard">
+            <div class="score">
+                <h3>Player</h3>
+                <p id="player-score">0</p>
+            </div>
+            <div class="score">
+                <h3>Draws</h3>
+                <p id="draws-score">0</p>
+            </div>
+            <div class="score">
+                <h3>Computer</h3>
+                <p id="computer-score">0</p>
+            </div>
+        </div>
+
+        <div class="game-history">
+            <h3>Game History</h3>
+            <div id="history-container"></div>
+        </div>
     </main>
+
+    <!-- Audio elements -->
+    <audio id="move-sound" src="sounds/move.mp3" preload="auto"></audio>
+    <audio id="win-sound" src="sounds/win.mp3" preload="auto"></audio>
+    <audio id="draw-sound" src="sounds/draw.mp3" preload="auto"></audio>
+    <audio autoplay id="background-sound" src="sounds/background.mp3"></audio>
+
     <script src="script.js"></script>
 </body>
+
 </html>
