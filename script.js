@@ -491,7 +491,7 @@ function updateHistoryUI() {
         historyItem.appendChild(miniBoard);
         DOM.historyContainer.appendChild(historyItem);
     });
-}
+} 
 
 // Play sound
 function playSound(type) {
@@ -563,6 +563,7 @@ function setDifficulty(level) {
     
     // Update game state
     GameState.difficulty = level;
+    resetGame();
 }
 
 // Set game mode (AI or 2-player)
@@ -573,6 +574,8 @@ function setGameMode(mode) {
     
     // Update game state
     GameState.currentMode = mode;
+    // Reset game with new settings
+    resetGame();
     
     // Show/hide relevant controls
     const aiControlsVisible = mode === GameConfig.MODE.AI;
@@ -591,8 +594,6 @@ function setGameMode(mode) {
         computerLabel.innerText = 'Player O';
     }
     
-    // Reset game with new settings
-    resetGame();
 }
 
 // Reset current game
