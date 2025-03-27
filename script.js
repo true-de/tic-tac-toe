@@ -114,7 +114,12 @@ function handleBoxClick() {
     // Two player mode logic
     if (GameState.currentMode === GameConfig.MODE.TWO_PLAYER) {
         makeMove(boxIndex, GameState.currentPlayer);
-        togglePlayer();
+        
+        // Check for game end
+        if (!checkGameEnd()) {
+            // Only toggle player if game is still active
+            togglePlayer();
+        }
         return;
     }
     
@@ -566,21 +571,34 @@ function setDifficulty(level) {
     resetGame();
 }
 
-// Set game mode (AI or 2-player)
 function setGameMode(mode) {
+    resetGame(); // This is crucial for immediate reset
+    
     // Update mode UI
     DOM.modeAI.classList.toggle('selected', mode === GameConfig.MODE.AI);
     DOM.mode2P.classList.toggle('selected', mode === GameConfig.MODE.TWO_PLAYER);
     
     // Update game state
     GameState.currentMode = mode;
-    // Reset game with new settings
-    resetGame();
     
     // Show/hide relevant controls
     const aiControlsVisible = mode === GameConfig.MODE.AI;
-    document.querySelector('.player-controls').classList.toggle('hidden', !aiControlsVisible);
-    document.querySelector('.difficulty-controls').classList.toggle('hidden', !aiControlsVisible);
+    const playerControls = document.querySelector('.player-controls');
+    const difficultyControls = document.querySelector('.difficulty-controls');
+    const computerFirstBtn = document.querySelector('#computer-first');
+    
+    // Hide AI-specific controls in two-player mode
+    if (mode === GameConfig.MODE.TWO_PLAYER) {
+        playerControls.classList.add('hidden');
+        difficultyControls.classList.add('hidden');
+        
+        // Ensure first player in two-player mode is always X
+        GameState.currentPlayer = GameConfig.MARK.X;
+        updateTurnIndicator();
+    } else {
+        playerControls.classList.remove('hidden');
+        difficultyControls.classList.remove('hidden');
+    }
     
     // Update score labels
     const playerLabel = document.querySelector('#player-label');
@@ -594,6 +612,8 @@ function setGameMode(mode) {
         computerLabel.innerText = 'Player O';
     }
     
+    // Reset game with new settings
+    resetGame();
 }
 
 // Reset current game
