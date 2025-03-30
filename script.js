@@ -682,16 +682,16 @@ function resetGame() {
 // Start a new game (reset scores and history)
 function newGame() {
     // Reset scores
-    GameState.scores = {
-        player: 0,
-        computer: 0,
-        draws: 0
-    };
+    // GameState.scores = {
+    //     player: 0,
+    //     computer: 0,
+    //     draws: 0
+    // };
     
-    // Update score display
-    DOM.playerScore.innerText = '0';
-    DOM.computerScore.innerText = '0';
-    DOM.drawsScore.innerText = '0';
+    // // Update score display
+    // DOM.playerScore.innerText = '0';
+    // DOM.computerScore.innerText = '0';
+    // DOM.drawsScore.innerText = '0';
     
     // Clear history
     GameState.history = [];
