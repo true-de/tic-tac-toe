@@ -397,6 +397,8 @@ function highlightWinPattern(cellA, cellB, cellC) {
 }
 
 // Show game result (win or draw)
+
+// Show game result (win or draw)
 function showGameResult(result) {
     GameState.gameActive = false;
     
@@ -405,6 +407,7 @@ function showGameResult(result) {
         DOM.msg.innerText = "It's a draw!";
         GameState.scores.draws++;
         DOM.drawsScore.innerText = GameState.scores.draws;
+        debugScoreUpdate('draws', GameState.scores.draws); // Added debug
         playSound('draw');
         addToHistory('Draw');
     } else {
@@ -413,11 +416,13 @@ function showGameResult(result) {
         if (isPlayerWin) {
             GameState.scores.player++;
             DOM.playerScore.innerText = GameState.scores.player;
+            debugScoreUpdate('player', GameState.scores.player); // Added debug
             DOM.msg.innerText = `${GameState.currentMode === GameConfig.MODE.TWO_PLAYER ? 'Player ' + result : 'You'} won!`;
             addToHistory(`Player ${result} won`);
         } else {
             GameState.scores.computer++;
             DOM.computerScore.innerText = GameState.scores.computer;
+            debugScoreUpdate('computer', GameState.scores.computer); // Added debug
             DOM.msg.innerText = `${GameState.currentMode === GameConfig.MODE.TWO_PLAYER ? 'Player ' + result : 'Computer'} won!`;
             addToHistory(`${GameState.currentMode === GameConfig.MODE.TWO_PLAYER ? 'Player ' + result : 'Computer'} won`);
         }
@@ -525,10 +530,34 @@ function playSound(type) {
 // Toggle sound
 function toggleSound() {
     GameConfig.SOUND.enabled = !GameConfig.SOUND.enabled;
-    DOM.soundToggle.innerHTML = GameConfig.SOUND.enabled 
-        ? `<i class="fas fa-volume-up"></i>` 
-        : `<i class="fa-solid fa-volume-xmark"></i>`;
+    
+    // More robust icon handling - checks for multiple icon possibilities
+    if (GameConfig.SOUND.enabled) {
+        // Sound on icon
+        DOM.soundToggle.innerHTML = `<i class="fas fa-volume-up"></i>`;
+        if (!DOM.soundToggle.querySelector('.fas.fa-volume-up')) {
+            // Fallback if the first icon class doesn't exist
+            DOM.soundToggle.innerHTML = `<i class="fa fa-volume-up"></i>`;
+        }
+    } else {
+        // Sound off icon
+        DOM.soundToggle.innerHTML = `<i class="fas fa-volume-xmark"></i>`;
+        if (!DOM.soundToggle.querySelector('.fas.fa-volume-xmark')) {
+            // Try older Font Awesome class
+            DOM.soundToggle.innerHTML = `<i class="fas fa-volume-mute"></i>`;
+            
+            // Additional fallback
+            if (!DOM.soundToggle.querySelector('.fas.fa-volume-mute')) {
+                DOM.soundToggle.innerHTML = `<i class="fa fa-volume-off"></i>`;
+            }
+        }
+    }
+    
+    // Update the class for styling
     DOM.soundToggle.classList.toggle('sound-off', !GameConfig.SOUND.enabled);
+    
+    // Log for debugging
+    console.log('Sound toggled:', GameConfig.SOUND.enabled);
 }
 
 
@@ -672,45 +701,12 @@ function newGame() {
     resetGame();
 }
 
-// Initialize game
-function initGame() {
-    // Set initial UI states
-    DOM.playAsO.classList.add('selected');
-    DOM.playerFirst.classList.add('selected');
-    DOM.difficultyHard.classList.add('selected');
-    DOM.modeAI.classList.add('selected');
-    
-    // Set up event listeners
-    setupEventListeners();
-    
-    // Update initial history UI
-    updateHistoryUI();
-    
-    // Update initial turn indicator
-    updateTurnIndicator();
-}
 
 // Start the game when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initGame);
 
 
 //REcently added
-// This is likely the current implementation causing the issue
-function setupToggleButtons() {
-    const optionGroups = document.querySelectorAll('.option-group');
-    
-    optionGroups.forEach(group => {
-        const buttons = group.querySelectorAll('.toggle-buttons button');
-        
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                // POTENTIAL ISSUE: This code only adds 'active' to the clicked button
-                // But it does NOT remove 'active' from the other button
-                button.classList.add('active');
-            });
-        });
-    });
-}
 
 // Correct implementation
 function setupToggleButtons() {
@@ -735,3 +731,87 @@ function setupToggleButtons() {
 
 // Call this function when the page loads
 document.addEventListener('DOMContentLoaded', setupToggleButtons);
+
+// Add this function to your script and call it during initGame():
+
+function validateDOMElements() {
+    const missingElements = [];
+    
+    // Check all DOM elements
+    for (const key in DOM) {
+        if (DOM[key] === null || DOM[key] === undefined) {
+            missingElements.push(key);
+        }
+    }
+    
+    // Check collections (like boxes)
+    if (DOM.boxes.length === 0) {
+        missingElements.push('boxes (empty collection)');
+    }
+    
+    // Log any missing elements
+    if (missingElements.length > 0) {
+        console.error('Missing DOM elements:', missingElements);
+        return false;
+    }
+    
+    console.log('All DOM elements validated successfully');
+    return true;
+}
+
+// Initialize game
+function initGame() {
+    // Validate DOM elements first
+    const isValid = validateDOMElements();
+    if (!isValid) {
+        console.error('Game initialization failed due to missing DOM elements');
+        alert('Error initializing game. Check console for details.');
+        return;
+    }
+    
+    // Set initial UI states
+    DOM.playAsO.classList.add('selected');
+    DOM.playerFirst.classList.add('selected');
+    DOM.difficultyHard.classList.add('selected');
+    DOM.modeAI.classList.add('selected');
+    
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Set up toggle buttons
+    setupToggleButtons();
+    
+    // Update initial history UI
+    updateHistoryUI();
+    
+    // Update initial turn indicator
+    updateTurnIndicator();
+    
+    // Initialize scores display
+    DOM.playerScore.innerText = GameState.scores.player;
+    DOM.computerScore.innerText = GameState.scores.computer;
+    DOM.drawsScore.innerText = GameState.scores.draws;
+    
+    console.log('Game initialized successfully');
+}
+
+// Add this code at the VERY END of your script to help debug score updates:
+function debugScoreUpdate(type, newValue) {
+    console.log(`Score update - ${type}: ${newValue}`);
+    
+    // Check if elements exist and update was successful
+    switch (type) {
+        case 'player':
+            console.log(`Player score element exists: ${DOM.playerScore !== null}`);
+            console.log(`Player score display: ${DOM.playerScore.innerText}`);
+            break;
+        case 'computer':
+            console.log(`Computer score element exists: ${DOM.computerScore !== null}`);
+            console.log(`Computer score display: ${DOM.computerScore.innerText}`);
+            break;
+        case 'draws':
+            console.log(`Draws score element exists: ${DOM.drawsScore !== null}`);
+            console.log(`Draws score display: ${DOM.drawsScore.innerText}`);
+            break;
+    }
+}
