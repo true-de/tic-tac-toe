@@ -47,7 +47,7 @@ The AI opponent uses the minimax algorithm to:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/true-de/tic-tac-toe-minimax.git
+   git clone https://github.com/true-de/tic-tac-toe.git
    ```
 2. Open `index.html` in your browser.
 
